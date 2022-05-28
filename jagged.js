@@ -1,0 +1,26 @@
+let c = (n)=>{return function l(...u){return n.length!==u.length?l.bind(null,...u):n.apply(null,u)}}, 
+d = document,
+w=window,
+json = c(d=>{try{return d.json()}catch{return d}}),
+s=w['state']={},toC=c((t,f, ...p) => a => a[t](f, ...p))
+export let j = {
+    curry: c,
+    pipe: (...fn) => (x) => fn.reduce((v, f) =>f(v), x),
+    get: c((u,t) => fetch(u).then(json).then(j.setState(t))),
+    post: c((u, d) => fetch(u,{method: "POST",body: JSON.stringify(d)}).then(json)),
+    map: toC('map'),
+    filter: toC('filter'),
+    reduce: toC('reduce'),
+    render: c((t, e) => w.requestAnimationFrame(()=>j.$(t).innerHTML = Array.isArray(e)?e.join(""):e)),
+    action: c((t,a)=>w[t]=a),
+    setState:c((e, n) => s[e] = n),
+    getState: c(t => s[t]),
+    parallel: c((fns, arg) => fns.map(fn => fn(arg)).join("")),
+    ready: (cb)=>j.listen('DOMContentLoaded', cb,d),
+    $: c((t, p = d) => {let r=p.querySelectorAll(t);return r.length==1?r[0]:r}),
+    class:c((p,c,t=d)=>t.classList[p](c)),
+    css:c((c,t)=>t.style.cssText=s),
+    listen:c((e,cb,t)=>t.addEventListener(e,cb)),
+    customEvent:c((e,d={})=>new CustomEvent(e,d)),
+    dispatch:c((e,t)=>t.dispatchEvent(new Event(e)))
+}
