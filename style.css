@@ -1,0 +1,26 @@
+#header{
+  color:blue;
+  font-size:4rem;
+  text-align:center;
+  position:sticky;
+  top: 0;
+  background-color:beige;
+}
+
+#header>input{
+  font-size:2rem
+}
+
+.postTitle{
+  font-size:1.5rem;
+  color:green
+}
+
+.container{
+  width:50%;
+  margin-left:25%;
+}
+body{
+  background-color:beige
+}
+  
